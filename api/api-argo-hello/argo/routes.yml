@@ -15,6 +15,7 @@ spec:
     helm:
       valueFiles:
         - ../../api/api-argo-hello/routes.yml
+        - ../../api/api-argo-hello/values.yml
   project: default
   syncPolicy:
     automated:
