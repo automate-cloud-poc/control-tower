@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-hello-deploy
+spec:
+  destination:
+    name: ''
+    namespace: ''
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: charts/deploy
+    repoURL: 'https://github.com/automate-cloud-poc/control-tower'
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - ../../api/api-argo-hello/deploy.yml
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - Replace=true
