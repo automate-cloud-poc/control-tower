@@ -1,0 +1,6 @@
+name: argo-hello
+
+gateway:
+  port: 8080
+  routes:
+    - path: "/argo/hello"
