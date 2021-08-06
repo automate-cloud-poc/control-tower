@@ -44,11 +44,13 @@ spec:
         authority: "{{ $name }}.api.svc.cluster.local"
       route:
         - destination:
+          {{- if .auth }}
             port:
               number: {{ $svcPort }}
-          {{- if .auth }}
             host: "{{ .auth }}.api.svc.cluster.local"
           {{- else }}
+            port:
+              number: 80
             host: "internal-ingress.gateway.svc.cluster.local"
           {{- end }}
   {{- end }}
