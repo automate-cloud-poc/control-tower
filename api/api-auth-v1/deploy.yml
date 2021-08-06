@@ -1,8 +1,8 @@
 deploy:
   replicaCount: 1
   image:
-    repository: gcr.io/multi-region-master/api-auth
-    tag: 0.0.1
+    repository: gcr.io/multi-tenant-project/authv1
+    tag: latest
 
 service:
   port: 8080
