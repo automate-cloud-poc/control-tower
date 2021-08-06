@@ -28,7 +28,7 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-      - ApplyOutOfSyncOnly={{ $application.routes.ApplyOutOfSyncOnly }}
+      - ApplyOutOfSyncOnly={{ $application.routesHeader.ApplyOutOfSyncOnly }}
       - Replace=true
 
   {{- end }}
