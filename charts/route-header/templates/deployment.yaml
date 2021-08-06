@@ -31,7 +31,7 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.deploy.image.repository }}:{{$canaryHeader.commit}}"
+          image: "{{ .Values.deploy.image.repository }}@sha256:{{$canaryHeader.commit}}"
           imagePullPolicy: Always
           ports:
             - name: http
