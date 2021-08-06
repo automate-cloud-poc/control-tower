@@ -3,4 +3,4 @@ gateway:
   routes:
     - path: "/argo/hello"
     - path: "/argo/hello/auth"
-      auth: "authv1"
+      auth: "api-auth-v1"
