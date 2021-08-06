@@ -4,6 +4,8 @@ applications:
       ApplyOutOfSyncOnly: true
     routes:
       ApplyOutOfSyncOnly: true
+    routesHeader:
+      ApplyOutOfSyncOnly: true
   - name: "api-auth-v1"
     deploy:
       ApplyOutOfSyncOnly: true

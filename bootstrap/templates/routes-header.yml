@@ -1,0 +1,35 @@
+{{- range $application := .Values.applications }}
+  {{- if $application.routesHeader }}
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "{{ $application.name }}-routes-header"
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    name: ''
+    namespace: ''
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: charts/routes
+    repoURL: 'https://github.com/automate-cloud-poc/control-tower'
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - "../../api/{{ $application.name }}/routes-header.yml"
+        - "../../api/{{ $application.name }}/values.yml"
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly={{ $application.routes.ApplyOutOfSyncOnly }}
+      - Replace=true
+
+  {{- end }}
+{{- end }}
