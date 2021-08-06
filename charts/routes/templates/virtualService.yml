@@ -49,7 +49,7 @@ spec:
           {{- if .auth }}
             host: "{{ .auth }}.api.svc.cluster.local"
           {{- else }}
-            host: "{{ $name }}.api.svc.cluster.local"
+            host: "internal-ingress.gateway.svc.cluster.local"
           {{- end }}
   {{- end }}
 
