@@ -1,7 +1,11 @@
+{{- range $application := .Values.applications }}
+  {{- if $application.routes }}
+---
+
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argo-hello-deploy
+  name: argo-hello-routes
   namespace: argocd
 spec:
   destination:
@@ -9,18 +13,21 @@ spec:
     namespace: ''
     server: 'https://kubernetes.default.svc'
   source:
-    path: charts/deploy
+    path: charts/routes
     repoURL: 'https://github.com/automate-cloud-poc/control-tower'
     targetRevision: HEAD
     helm:
       valueFiles:
-        - ../../api/api-argo-hello/deploy.yml
-        - ../../api/api-argo-hello/values.yml
+        - "../../api/{{ $application.name }}/routes.yml"
+        - "../../api/{{ $application.name }}/values.yml"
   project: default
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - ApplyOutOfSyncOnly=true
+      - ApplyOutOfSyncOnly={{ $application.routes.ApplyOutOfSyncOnly }}
       - Replace=true
+
+  {{- end }}
+{{- end }}

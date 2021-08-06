@@ -1,0 +1,8 @@
+deploy:
+  replicaCount: 1
+  image:
+    repository: gcr.io/multi-tenant-project/argo-hello
+    tag: 0.0.1
+
+service:
+  port: 8080

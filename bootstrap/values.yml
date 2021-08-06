@@ -1,0 +1,9 @@
+applications:
+  - name: "api-argo-hello"
+    deploy:
+      ApplyOutOfSyncOnly: true
+    routes:
+      ApplyOutOfSyncOnly: true
+  - name: "api-auth-v1"
+    deploy:
+      ApplyOutOfSyncOnly: true
