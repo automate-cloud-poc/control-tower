@@ -21,6 +21,7 @@ spec:
     helm:
       valueFiles:
         - "../../api/{{ $application.name }}/routes-header.yml"
+        - "../../api/{{ $application.name }}/deploy.yml"
         - "../../api/{{ $application.name }}/values.yml"
   project: default
   syncPolicy:
