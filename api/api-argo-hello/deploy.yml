@@ -6,9 +6,3 @@ deploy:
 
 service:
   port: 8080
-
-canary-header:
-  - commit: "53523523mfsfjasjag8sag8a"
-    header:
-      key: "x-version"
-      value: "123"
