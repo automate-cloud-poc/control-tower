@@ -1,7 +1,7 @@
 deploy:
   replicaCount: 1
   image:
-    repository: gcr.io/multi-tenant-project/argo-hello
+    repository: gcr.io/multi-region-master/api-auth
     tag: 0.0.1
 
 service:
