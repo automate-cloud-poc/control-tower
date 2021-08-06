@@ -1,16 +1,19 @@
+{{- $name := .Values.name -}}
+{{- $svcPort := .Values.service.port -}}
+
 {{- range $canaryHeader := .Values.canaryHeader }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ .Values.name }}-{{$canaryHeader.commit}}"
+  name: "{{ $name }}-{{$canaryHeader.commit}}"
   namespace: api
   labels:
     {{- include "api-helm.labels" . | nindent 4 }}
 spec:
   type: ClusterIP
   ports:
-    - port: {{ .Values.service.port }}
+    - port: {{ $svcPort}}
       targetPort: http
       protocol: TCP
       name: http
