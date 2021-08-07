@@ -1,6 +1,5 @@
-
 canaryHeader:
-  - commit: "cae009442e9472178d5263eaa906fda1b9df00ce49f08ee20d2de7025f63214a"
+  - commit: "a286b6722eae46e424e6a82b4a6d549ee4eb4afafe3b9c3a5fd86e5d5a79f187"
     header:
       key: "x-version"
       value: "123"

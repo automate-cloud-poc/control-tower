@@ -8,22 +8,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ $name }}-{{$canaryHeader.commit}}"
+  name: "{{ $name }}-{{substr 0 5 $canaryHeader.commit}}"
   namespace: api
   labels:
-    - "{{ $name }}-{{$canaryHeader.commit}}"
+    app.kubernetes.io/instance: "{{ $name }}-{{substr 0 5 $canaryHeader.commit}}"
 spec:
   replicas: {{ $replicaCount }}
   selector:
     matchLabels:
-      - "{{ $name }}-{{$canaryHeader.commit}}"
+      app.kubernetes.io/instance: "{{ $name }}-{{substr 0 5 $canaryHeader.commit}}"
   template:
     metadata:
       labels:
-        - "{{ $name }}-{{$canaryHeader.commit}}"
+        app.kubernetes.io/instance: "{{ $name }}-{{substr 0 5 $canaryHeader.commit}}"
     spec:
       containers:
-        - name: "{{ $name }}-{{$canaryHeader.commit}}"
+        - name: "{{ $name }}-{{substr 0 5 $canaryHeader.commit}}"
           image: "{{ $repo }}@sha256:{{$canaryHeader.commit}}"
           imagePullPolicy: Always
           ports:
