@@ -23,7 +23,7 @@ spec:
             exact: "{{ $route.path }}"
           headers:
             {{$canaryHeader.header.key}}:
-              exact: {{$canaryHeader.header.value}}
+              exact: "{{$canaryHeader.header.value}}"
       route:
         - destination:
             port:
