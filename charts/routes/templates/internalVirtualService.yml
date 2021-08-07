@@ -1,0 +1,28 @@
+{{- if .Values.gateway }}
+
+{{- $svcPort := .Values.gateway.port -}}
+{{- $name := .Values.name -}}
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: "internal-{{ .Values.name }}"
+  namespace: api
+spec:
+  hosts:
+    - "{{ $name }}.api.svc.cluster.local"
+  gateways:
+    - gateway/internal-ingress
+  http:
+    {{- range $route := .Values.gateway.routes }}
+    - match:
+        - uri:
+            exact: "{{ $route.path }}"
+      route:
+        - destination:
+            port:
+              number: {{ $svcPort }}
+            host: "{{ $name }}.api.svc.cluster.local"
+  {{- end }}
+
+{{- end }}
