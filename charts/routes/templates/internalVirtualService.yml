@@ -14,6 +14,24 @@ spec:
   gateways:
     - gateway/internal-ingress
   http:
+    {{- if .Values.canaryHeader }}
+    {{- range $canaryHeader := .Values.canaryHeader }}
+    {{- range $route := .Values.gateway.routes }}
+    - match:
+        - uri:
+            exact: "{{ $route.path }}"
+          headers:
+            {{$canaryHeader.header.key}}:
+              exact: {{$canaryHeader.header.value}}
+      route:
+        - destination:
+            port:
+              number: {{ $svcPort }}
+            host: "{{ $name }}-{{substr 0 7 $canaryHeader.commit}}.api.svc.cluster.local"
+    {{- end }}
+    {{- end }}
+    {{- end }}
+
     {{- range $route := .Values.gateway.routes }}
     - match:
         - uri:
