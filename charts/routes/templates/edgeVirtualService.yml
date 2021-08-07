@@ -17,7 +17,15 @@ spec:
     {{- range $route := .Values.gateway.routes }}
     - match:
       - uri:
+
+        {{- if $route.path }}
           exact: "{{ $route.path }}"
+        {{- end }}
+
+        {{- if $route.prefix }}
+          prefix: "{{ $route.prefix }}"
+        {{- end }}
+
       rewrite:
         authority: "{{ $name }}.api.svc.cluster.local"
       route:

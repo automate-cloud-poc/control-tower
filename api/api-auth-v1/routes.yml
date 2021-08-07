@@ -1,0 +1,4 @@
+gateway:
+  port: 8080
+  routes:
+    - prefix: "/"
