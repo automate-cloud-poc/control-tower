@@ -2,6 +2,7 @@
 
 {{- $svcPort := .Values.gateway.port -}}
 {{- $name := .Values.name -}}
+{{- $routes := .Values.gateway.routes -}}
 
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -16,7 +17,7 @@ spec:
   http:
     {{- if .Values.canaryHeader }}
     {{- range $canaryHeader := .Values.canaryHeader }}
-    {{- range $route := .Values.gateway.routes }}
+    {{- range $route := $routes }}
     - match:
         - uri:
             exact: "{{ $route.path }}"
