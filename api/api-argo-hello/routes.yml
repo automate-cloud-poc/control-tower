@@ -1,5 +1,7 @@
 gateway:
   routes:
     - path: "/argo/hello"
+    - path: "/hello/secret"
+    - path: "/hello/configMap"
     - path: "/argo/hello/auth"
       auth: "api-auth-v1"
