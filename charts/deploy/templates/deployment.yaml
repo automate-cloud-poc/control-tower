@@ -74,15 +74,14 @@ spec:
             httpGet:
               path: /health
               port: http
-          {{- if or .Values.configMap .Values.sealedSecret}}
-          - env:
-            envFrom:
-              {{- if .Values.configMap}}
-              - configMapRef:
-                  name: "{{ $name }}-configmap"
-              {{- end }}
-              {{- if .Values.sealedSecret}}
-              - secretRef:
-                  name: "{{ $name }}-secret"
-              {{- end }}
-          {{- end }}
+        {{- if or .Values.configMap .Values.sealedSecret}}
+          envFrom:
+            {{- if .Values.configMap}}
+            - configMapRef:
+                name: "{{ $name }}-configmap"
+            {{- end }}
+            {{- if .Values.sealedSecret}}
+            - secretRef:
+                name: "{{ $name }}-secret"
+            {{- end }}
+        {{- end }}
