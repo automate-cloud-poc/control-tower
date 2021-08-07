@@ -3,3 +3,7 @@ canaryHeader:
     header:
       key: "x-version"
       value: "123"
+  - commit: "d84d8670ff15415d5d90b4e5726eba51b717d8de"
+    header:
+      key: "x-version"
+      value: "d84d8"
