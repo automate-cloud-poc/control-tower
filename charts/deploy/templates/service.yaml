@@ -1,16 +1,21 @@
+{{- $name := .Values.name -}}
+{{- $svcPort := .Values.service.port -}}
+
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.name }}
+  name: "{{ $name }}"
   namespace: api
   labels:
-    {{- include "api-helm.labels" . | nindent 4 }}
+    app.kubernetes.io/instance: "{{ $name }}"
 spec:
   type: ClusterIP
   ports:
-    - port: {{ .Values.service.port }}
+    - port: {{ $svcPort}}
       targetPort: http
       protocol: TCP
       name: http
   selector:
-    {{- include "api-helm.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/name: "{{ $name }}"
+    app.kubernetes.io/instance: "{{ $name }}"
