@@ -4,32 +4,19 @@ metadata:
   name: {{ .Values.name }}
   namespace: api
   labels:
-    {{- include "api-helm.labels" . | nindent 4 }}
+    app.kubernetes.io/instance: "{{ .Values.name }}"
 spec:
   replicas: {{ .Values.deploy.replicaCount }}
   selector:
     matchLabels:
-      {{- include "api-helm.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/instance: "{{ .Values.name }}"
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        {{- include "api-helm.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/instance: "{{ .Values.name }}"
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-{{/*      serviceAccountName: {{ include "api-helm.serviceAccountName" . }}*/}}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: Always
           ports:
@@ -44,17 +31,3 @@ spec:
             httpGet:
               path: /health
               port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
