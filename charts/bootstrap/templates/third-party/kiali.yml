@@ -8,7 +8,7 @@ metadata:
 spec:
   destination:
     name: ''
-    namespace: ''
+    namespace: 'kiali-operator'
     server: 'https://kubernetes.default.svc'
   source:
     repoURL: 'https://github.com/automate-cloud-poc/control-tower'
