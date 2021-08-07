@@ -10,6 +10,7 @@ metadata:
   namespace: api
   labels:
     app.kubernetes.io/instance: "{{ $name }}-{{substr 0 7 $canaryHeader.commit}}"
+    app.kubernetes.io/name: "{{ $name }}-{{substr 0 7 $canaryHeader.commit}}"
 spec:
   type: ClusterIP
   ports:
