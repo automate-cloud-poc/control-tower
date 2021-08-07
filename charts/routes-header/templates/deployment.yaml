@@ -2,6 +2,8 @@
 {{- $replicaCount := .Values.deploy.replicaCount -}}
 {{- $repo := .Values.deploy.image.repository -}}
 {{- $svcPort := .Values.service.port -}}
+{{- $configMap := .Values.configMap -}}
+{{- $sealedSecret := .Values.sealedSecret -}}
 
 {{- range $canaryHeader := .Values.canaryHeader }}
 ---
@@ -41,13 +43,13 @@ spec:
             httpGet:
               path: /health
               port: http
-          {{- if or .Values.configMap .Values.sealedSecret}}
+          {{- if or $configMap $sealedSecret}}
           envFrom:
-            {{- if .Values.configMap}}
+            {{- if $configMap}}
             - configMapRef:
                 name: "{{ $name }}-configmap"
             {{- end }}
-            {{- if .Values.sealedSecret}}
+            {{- if $sealedSecret}}
             - secretRef:
                 name: "{{ $name }}"
         {{- end }}
