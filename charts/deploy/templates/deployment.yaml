@@ -4,19 +4,23 @@
 {{- $svcPort := .Values.service.port -}}
 
 ---
+{{- if .Values.configMap }}
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
   namespace: api
   name: "{{ $name }}-configmap"
-{{- if .Values.configMap }}
 data:
 {{- range $key,$value := .Values.configMap }}
   {{$key}}: {{$value}}
 {{- end }}
+
 {{- end }}
 
 ---
+
+{{- if .Values.sealedSecret }}
 
 apiVersion: bitnami.com/v1alpha1
 kind: SealedSecret
@@ -24,12 +28,12 @@ metadata:
   name: "{{ $name }}-secret"
   namespace: api
 
-{{- if .Values.sealedSecret }}
 spec:
   encryptedData:
   {{- range $key,$value := .Values.sealedSecret }}
     {{$key}}: {{$value}}
   {{- end }}
+
 {{- end }}
 
 ---
@@ -70,9 +74,15 @@ spec:
             httpGet:
               path: /health
               port: http
+          {{- if or .Values.configMap .Values.sealedSecret}}
           env:
             envFrom:
+              {{- if .Values.configMap}}
               - configMapRef:
                   name: "{{ $name }}-configmap"
+              {{- end }}
+              {{- if .Values.sealedSecret}}
               - secretRef:
                   name: "{{ $name }}-secret"
+              {{- end }}
+          {{- end }}
