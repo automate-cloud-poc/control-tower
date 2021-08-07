@@ -40,7 +40,6 @@ service:
 routes file structure:
  ```
 gateway:
-  port: 8080
   routes:
     - path: "/argo/hello"
     - path: "/argo/hello/auth" 
