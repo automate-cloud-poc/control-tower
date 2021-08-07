@@ -1,6 +1,6 @@
 {{- if .Values.gateway }}
 
-{{- $svcPort := .Values.gateway.port -}}
+{{- $svcPort := .Values.service.port -}}
 {{- $name := .Values.name -}}
 {{- $routes := .Values.gateway.routes -}}
 
