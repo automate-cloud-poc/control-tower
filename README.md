@@ -50,3 +50,8 @@ argocd first login:
 
 * kubectl port-forward svc/argocd-server -n argocd 8080:443
 * kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
+kubeseal
+* wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.10.0/kubeseal-linux-amd64 -O kubeseal
+* sudo install -m 755 kubeseal /usr/local/bin/kubeseal
+* create secret on the fly: kubectl create secret generic mySecret --dry-run=client --from-literal foo=bar --output json | kubeseal
