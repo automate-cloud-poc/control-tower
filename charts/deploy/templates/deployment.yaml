@@ -75,7 +75,7 @@ spec:
               path: /health
               port: http
           {{- if or .Values.configMap .Values.sealedSecret}}
-          env:
+          - env:
             envFrom:
               {{- if .Values.configMap}}
               - configMapRef:
