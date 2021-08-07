@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: "{{ $name }}-{{substr 0 7 $canaryHeader.commit}}"
-          image: "{{ $repo }}@sha256:{{$canaryHeader.commit}}"
+          image: "{{ $repo }}:{{$canaryHeader.commit}}"
           imagePullPolicy: Always
           ports:
             - name: http
