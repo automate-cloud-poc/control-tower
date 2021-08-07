@@ -6,8 +6,6 @@ applications:
       ApplyOutOfSyncOnly: true
     routesHeader:
       ApplyOutOfSyncOnly: true
-    sealedSecret:
-      ApplyOutOfSyncOnly: true
   - name: "api-auth-v1"
     deploy:
       ApplyOutOfSyncOnly: true

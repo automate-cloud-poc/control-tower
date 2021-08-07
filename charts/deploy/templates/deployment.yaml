@@ -1,9 +1,39 @@
 {{- $name := .Values.name -}}
-  {{- $replicaCount := .Values.deploy.replicaCount -}}
-  {{- $repo := .Values.deploy.image.repository -}}
-  {{- $svcPort := .Values.service.port -}}
+{{- $replicaCount := .Values.deploy.replicaCount -}}
+{{- $repo := .Values.deploy.image.repository -}}
+{{- $svcPort := .Values.service.port -}}
 
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: api
+  name: "{{ $name }}-configmap"
+{{- if .Values.configMap }}
+data:
+{{- range $key,$value := .Values.configMap }}
+  {{$key}}: {{$value}}
+{{- end }}
+{{- end }}
+
+---
+
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: "{{ $name }}-secret"
+  namespace: api
+
+{{- if .Values.sealedSecret }}
+spec:
+  encryptedData:
+  {{- range $key,$value := .Values.sealedSecret }}
+    {{$key}}: {{$value}}
+  {{- end }}
+{{- end }}
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -40,3 +70,9 @@ spec:
             httpGet:
               path: /health
               port: http
+          - env:
+            envFrom:
+              - configMapRef:
+                  name: "{{ $name }}-configmap"
+              - secretRef:
+                  name: "{{ $name }}-secret"
