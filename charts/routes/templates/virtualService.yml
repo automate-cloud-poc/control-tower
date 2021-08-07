@@ -14,10 +14,10 @@ spec:
   gateways:
     - gateway/internal-ingress
   http:
-    {{- range .Values.gateway.routes }}
+    {{- range $route := .Values.gateway.routes }}
     - match:
         - uri:
-            exact: "{{ .path }}"
+            exact: "{{ $route.path }}"
       route:
         - destination:
             port:
@@ -36,10 +36,10 @@ spec:
   gateways:
     - gateway/edge-ingress
   http:
-    {{- range .Values.gateway.routes }}
+    {{- range $route := .Values.gateway.routes }}
     - match:
       - uri:
-          exact: "{{ .path }}"
+          exact: "{{ $route.path }}"
       rewrite:
         authority: "{{ $name }}.api.svc.cluster.local"
       route:
