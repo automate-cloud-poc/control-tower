@@ -55,7 +55,7 @@ jobs:
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
         run: |-
-          helm upgrade --install --wait --timeout 300s --set masterCert=$MASTER_CERT --set masterKey=$MASTER_KEY -f api/values.yml argo-apps ./charts/bootstrap
+          helm upgrade --install --wait --timeout 300s --set masterCert=${{ secrets.MASTER_CERT }} --set masterKey=${{ secrets.MASTER_KEY }} -f api/values.yml argo-apps ./charts/bootstrap
 #        ./kustomize edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA
 #        ./kustomize build . | kubectl apply -f -
 #        kubectl rollout status deployment/$DEPLOYMENT_NAME
