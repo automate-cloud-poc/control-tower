@@ -1,1 +1,1 @@
-kubectl create secret generic argo-hello -n api --dry-run=client --from-literal secret2=bar -o yaml | kubseal
+kubectl create secret generic argo-hello -n api --dry-run=client --from-literal secret1=foo2 -o yaml | kubseal
