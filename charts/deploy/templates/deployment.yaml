@@ -46,6 +46,9 @@ metadata:
   labels:
     app.kubernetes.io/instance: "{{ $name }}"
     app.kubernetes.io/name: "{{ $name }}"
+  annotations:
+    configmap.reloader.stakater.com/reload: "{{ $name }}-configmap"
+    secret.reloader.stakater.com/reload: "{{ $name }}"
 spec:
   replicas: {{ $replicaCount }}
   selector:

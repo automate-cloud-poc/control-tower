@@ -15,6 +15,9 @@ metadata:
   labels:
     app.kubernetes.io/instance: "{{ $name }}-{{substr 0 7 $canaryHeader.commit}}"
     app.kubernetes.io/name: "{{ $name }}-{{substr 0 7 $canaryHeader.commit}}"
+  annotations:
+    configmap.reloader.stakater.com/reload: "{{ $name }}-configmap"
+    secret.reloader.stakater.com/reload: "{{ $name }}"
 spec:
   replicas: {{ $replicaCount }}
   selector:
