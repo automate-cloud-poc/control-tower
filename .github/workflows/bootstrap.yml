@@ -55,7 +55,7 @@ jobs:
       # Deploy the Docker image to the GKE cluster
       - name: install reloader
         run: |-
-          helm install stakater/reloader --set reloader.watchGlobally=false --namespace api
+          helm install stakater/reloader --set reloader.watchGlobally=false --namespace api config-reloader
 
 
       # Deploy the Docker image to the GKE cluster
